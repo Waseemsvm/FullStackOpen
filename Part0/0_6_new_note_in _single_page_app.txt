@@ -1,0 +1,7 @@
+sequenceDiagram
+    participant browser
+    participant server
+    Note right of browser: user types in the input and submits the form.
+    browser->>server:  POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    server-->>browser: {"message":"note created"}
+    Note right of browser: browser executes callback that updates dom and logs the message.
