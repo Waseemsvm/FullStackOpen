@@ -1,8 +1,16 @@
-# React + Vite
+# Data for Countries
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Features
 
-Currently, two official plugins are available:
+- You can filter the counties with the query string entered in the input
+- If the number of filtered countries is more than 10, it asks for more specific country name.
+- if the number of filtered countries is less than or equal to 10, then they are displayed as a list.
+- You can select the country for which you want the details to be shown.
+- If the number of countries is 1 then details are displayed for that country.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+The APIS used for fetching the data are
+
+- https://studies.cs.helsinki.fi/restcountries/
+- https://openweathermap.org/
+
