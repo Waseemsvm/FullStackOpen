@@ -1,4 +1,5 @@
 const Persons = ({ persons, handleDelete }) => {
+    console.log("Persons component",persons)
     return (
         <div>
             {persons.map(person =>

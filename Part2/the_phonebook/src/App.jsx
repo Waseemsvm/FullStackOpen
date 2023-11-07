@@ -39,6 +39,8 @@ const App = () => {
       number: localData.newNumber
     }
 
+    console.log("submit handler", personObj)
+
     const personFound = validateUser();
 
     if (personFound) {
@@ -61,7 +63,9 @@ const App = () => {
       return;
     }
 
+    console.log("creating person", personObj)
     personsService.create(personObj).then(returnedPerson => {
+      console.log("returnedPerson", returnedPerson);
       const newPersonsArr = persons.concat(returnedPerson);
       setPersons(newPersonsArr);
       setLocalData({ ...localData, newName: "", newNumber: "" });
