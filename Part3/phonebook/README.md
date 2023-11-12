@@ -12,4 +12,4 @@ Features
 
 use run start to start the server
 
-currently runnding on https://the-phonebook-6kqd.onrender.com/
+currently running on https://the-phonebook-6kqd.onrender.com/
