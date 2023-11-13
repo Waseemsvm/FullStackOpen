@@ -7,7 +7,7 @@ if (process.argv.length > 3) {
 
 const url = process.env.MONGODB_URI;
 
-console.log(url);
+// console.log(url);
 
 mongoose.set("strictQuery", false);
 
