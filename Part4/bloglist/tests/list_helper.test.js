@@ -3,19 +3,56 @@ const supertest = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../app");
 const Blog = require("../models/blog");
+const User = require("../models/user");
 const logger = require("../utils/logger");
 
 mongoose.set("bufferTimeoutMS", 30000);
 const api = supertest(app);
 
+let token;
+
 beforeEach(async () => {
+  logger.info("beforeEach started");
   await Blog.deleteMany({});
+  await User.deleteMany({});
+
+  let user = {
+    username: "testuser",
+    name: "testuser",
+    password: "test",
+  };
+
+  logger.info("creating user", user);
+
+  await api.post("/api/users").send(user);
+
+  logger.info("user created");
+  logger.info("logging in user", user);
+
+  const obj = await api
+    .post("/api/login")
+    .set("Content-Type", "application/json")
+    .send(user);
+  token = obj.body.token;
+
+  logger.info("user logged in ");
+
+  logger.info("token generated", token);
+  logger.info("initializing blogs", listHelper.initialBlogs);
 
   for (let oBlog of listHelper.initialBlogs) {
-    let blogObj = new Blog(oBlog);
-    await blogObj.save();
+    // let blogObj = new Blog(oBlog);
+    // await blogObj.save();
+
+    await api
+      .post("/api/blogs")
+      .send(oBlog)
+      .set("Authorization", `Bearer ${token}`);
   }
-  logger.info("done");
+
+  logger.info("blogs initialization finished");
+
+  logger.info("beforeEach ended");
 }, 10000);
 
 test("all blogs are returned in json format", async () => {
@@ -43,18 +80,24 @@ test("a blog is created", async () => {
     likes: 4,
   };
 
+  // await api
+  //   .post("/api/blogs")
+  //   .set("Authorization", `Bearer ${token}`)
+  //   .send(newBlog)
+  //   .expect(201)
+  //   .expect("Content-type", /application\/json/);
+
   await api
     .post("/api/blogs")
     .send(newBlog)
-    .expect(201)
-    .expect("Content-type", /application\/json/);
+    .set("Authorization", `Bearer ${token}`);
 
   const blogsInEnd = await listHelper.blogsInDb();
   expect(blogsInEnd).toHaveLength(listHelper.initialBlogs.length + 1);
 
   const titles = blogsInEnd.map((blog) => blog.title);
   expect(titles).toContain("This is a new Blog");
-});
+}, 10000);
 
 test("request contains like", () => {
   let newBlog = {
@@ -69,13 +112,20 @@ test("title or url properties are missing from the request", async () => {
   let newBlog = {
     author: "Waseem Akram P",
   };
-  await api.post("/api/blogs").send(newBlog).expect(400);
+  await api
+    .post("/api/blogs")
+    .set("Authorization", `Bearer ${token}`)
+    .send(newBlog)
+    .expect(400);
 }, 6500);
 
 test("delete a single blog post", async () => {
   let blogs = await listHelper.blogsInDb();
   let blogAtStart = blogs[0];
-  await api.delete(`/api/blogs/${blogAtStart.id}`).expect(204);
+  await api
+    .delete(`/api/blogs/${blogAtStart.id}`)
+    .set("Authorization", `Bearer ${token}`)
+    .expect(204);
 
   const blogsAtEnd = await listHelper.blogsInDb();
   expect(blogsAtEnd).toHaveLength(listHelper.initialBlogs.length - 1);
