@@ -1,5 +1,6 @@
 POST http://localhost:3001/api/blogs HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY1NzQ5MDBiNGQzZTUxZDYxOGNiMmMxZiIsImlhdCI6MTcwMjE4MjM0NywiZXhwIjoxNzAyMTg1OTQ3fQ.l5gFy1yxapHPPUHmesaIDyBWvSKdoIc0kyQFvPbwNOk
 
 {
     "title": "title1",
@@ -7,3 +8,8 @@ Content-Type: application/json
     "url": "url1",
     "likes": 5 
 }
+
+
+###
+GET http://localhost:3001/api/blogs
+
