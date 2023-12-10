@@ -1,2 +1,2 @@
-DELETE http://localhost:3001/api/blogs/65748c65e3e606bc7725535d
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY1NzQ5MDBiNGQzZTUxZDYxOGNiMmMxZiIsImlhdCI6MTcwMjE5OTA4MiwiZXhwIjoxNzAyMjAyNjgyfQ.YtqGGVCJHYmsq2dhB7gyOYfxHW8YbCnQkHRTue5Wd_4
+DELETE http://localhost:3001/api/blogs/6575aff2074250cf1f45e930
+Authorization: Bearer {{$dotenv TOKEN}}
