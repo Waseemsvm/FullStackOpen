@@ -1,0 +1,2 @@
+DELETE http://localhost:3001/api/blogs/6575b1bd65af3b19c5081902
+Authorization: Bearer {{$dotenv TOKEN}}

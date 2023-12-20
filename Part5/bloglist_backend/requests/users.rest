@@ -1,0 +1,15 @@
+POST http://localhost:3001/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "wa",
+    "username": "waseemsvm2",
+    "password": "myPassword"
+}
+
+###
+GET http://localhost:3001/api/users
+
+###
+DELETE http://localhost:3001/api/users/65748b57cbce6c87515d008a
+
